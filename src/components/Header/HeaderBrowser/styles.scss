@@ -4,7 +4,7 @@ $label-font-color: #4a4a4a;
 $label-font-color-hover: #8dc647;
 
 .header-container-fluid {
-    border: 2px solid rgb(221, 221, 221);
+    border-bottom: 2px solid rgb(221, 221, 221);
     .header-container {
         max-width: 1300px;
         height: 72px;
@@ -231,4 +231,30 @@ $label-font-color-hover: #8dc647;
             }
         }
     }
+}
+
+@media only screen and (max-width : 1199px) {
+    .header-container-fluid {
+        .header-container {
+            max-width: 100%;
+            padding: 0 5px;
+    
+            .header-left {
+                width: calc(100% / 12) * 7;
+    
+                .header-logo {
+                    width: 110px;
+                    height: 30px;
+                    object-fit: cover;
+                }
+                .menu-left-options {
+                    width: fit-content;
+                }
+            }
+    
+            .header-right {
+                width: calc(100% / 12) * 4.5; 
+            }
+        }
+    } 
 }
