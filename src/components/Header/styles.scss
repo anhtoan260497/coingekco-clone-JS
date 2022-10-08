@@ -1,0 +1,234 @@
+@import "/src/assets/scss/variables";
+
+$label-font-color: #4a4a4a;
+$label-font-color-hover: #8dc647;
+
+.header-container-fluid {
+    border: 2px solid rgb(221, 221, 221);
+    .header-container {
+        max-width: 1300px;
+        height: 72px;
+        padding: 0 15px;
+
+        .header-left {
+            width: calc(100% / 12) * 6;
+            height: 100%;
+
+            .header-logo {
+                width: 140px;
+                height: 40px;
+            }
+            .menu-left-options {
+                padding: 5px 10px;
+                width: fit-content;
+                cursor: pointer;
+                position: relative;
+
+                .label {
+                    font-size: 14px;
+                    color: $label-font-color;
+                    font-weight: 500;
+                }
+
+                &:hover {
+                    .label {
+                        color: $label-font-color-hover;
+                    }
+
+                    .menu-child-options {
+                        display: flex;
+                    }
+                }
+
+                .menu-child-options {
+                    position: absolute;
+                    width: 200px;
+                    z-index: 1000;
+                    margin-top: 3px;
+                    border: 1px solid rgb(221, 221, 221);
+                    border-radius: 5px;
+                    background-color: white;
+                    display: none;
+
+                    .slash {
+                        width: 100%;
+                        border: 1px solid rgb(244, 244, 244);
+                    }
+
+                    .child-option {
+                        font-size: 14px;
+                        width: 100%;
+                        color: $label-font-color;
+                        font-weight: 600;
+                        padding: 6px 12px;
+                        text-align: left;
+                        margin: auto;
+
+                        .new-label {
+                            padding: 2px 8px;
+                            margin-left: 10px;
+                            border-radius: 3px;
+                            background-color: #ddeec8;
+                            color: #8dc648;
+                            font-size: 12px;
+                        }
+
+                        &:hover {
+                            background-color: #f8f9fa;
+                        }
+                    }
+                }
+            }
+        }
+
+        .header-right {
+            width: calc(100% / 12) * 4;
+            position: relative;
+
+            .anchor-option {
+                color: #333333;
+                font-size: 14px;
+
+                &:hover {
+                    color: $label-font-color-hover;
+                }
+            }
+
+            .header-signup {
+                font-size: 12px;
+                border-radius: 5px;
+                padding: 6px 10px;
+                color: #fff;
+                background-color: $label-font-color-hover;
+                font-weight: 600;
+
+                &:hover {
+                    background-color: #69a235;
+                }
+            }
+
+            .header-right-input {
+                position: relative;
+
+                .icon {
+                    position: absolute;
+                    left: 10px;
+                    top: 12px;
+                    color: #9ca3af;
+                }
+
+                .close {
+                    right: 10px;
+                    left: auto;
+                    cursor: pointer;
+                }
+
+                &:hover {
+                    input::placeholder {
+                        color: #6b7280;
+                    }
+
+                    .icon {
+                        color: #6b7280;
+                    }
+                }
+            }
+
+            .input-trending {
+                padding: 10px 12px;
+                border-radius: 5px;
+                font-size: 14px;
+                background-color: #f3f4f6;
+                color: #9ca3af;
+
+                &::placeholder {
+                    padding-left: 16px;
+                }
+            }
+
+            .active-trending {
+                width: 100%;
+            }
+
+            .trending-search {
+                width: 100%;
+                margin-top: -10px;
+                box-shadow: $global-box-shadow;
+                background-color: white;
+                top: 66px;
+
+                &-title {
+                    font-size: 12px;
+                    color: #9ca3af;
+                    text-align: left;
+                }
+
+                .slash {
+                    width: 100%;
+                    border: 1px solid rgb(244, 244, 244);
+                }
+
+                .search-item {
+                    width: 100%;
+                    font-size: 14px;
+                    color: $label-font-color;
+                    font-weight: 600;
+
+                    &:hover {
+                        background-color: #f8f9fa;
+                    }
+
+                    img {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+            }
+        }
+
+        .trending {
+            position: relative;
+            top: 20%;
+            justify-content: flex-start;
+            flex-direction: column;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,.05);
+
+            .header-right-input {
+                input {
+                    margin-bottom: 10px;
+                    border: none;
+                    background-color: unset;
+                    padding-left: 32px;
+
+                    &::placeholder {
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+
+        .input-trending {
+            padding: 10px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #f3f4f6;
+            color: #9ca3af;
+
+            &::placeholder {
+                padding-left: 16px;
+            }
+        }
+
+        .active-trending {
+            width: 100%;
+        }
+
+        .trending-search {
+            &-title {
+                padding: 3px 10px;
+            }
+        }
+    }
+}
