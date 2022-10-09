@@ -1,275 +1,268 @@
-import { faBars,faBookmark, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faBookmark,
+  faUser,
+  faXmark,
+  faMagnifyingGlass
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Menu, Modal } from "antd";
+import { getTrending } from "features/coinSlice";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./styles.scss";
-function getItem(label, key, icon, children, type) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  };
-}
 
 const menuList = [
   {
-    label : 'Cryptocurrencies',
-    child : [
+    label: "Cryptocurrencies",
+    child: [
       {
-        name : 'By Marker Cap',
-        slug : ''
+        name: "By Marker Cap",
+        slug: "",
       },
       {
-        name : 'Categories',
-        slug : ''
+        name: "Categories",
+        slug: "",
       },
       {
-        name : 'Gainers & Losers',
-        slug : ''
+        name: "Gainers & Losers",
+        slug: "",
       },
       {
-        name : 'All Coins',
-        slug : ''
+        name: "All Coins",
+        slug: "",
       },
       {
-        name : 'Global Chart',
-        slug : ''
+        name: "Global Chart",
+        slug: "",
       },
       {
-        name : 'New Cryptocurrencies',
-        slug : ''
+        name: "New Cryptocurrencies",
+        slug: "",
       },
       {
-        name : 'Watchlists',
-        slug : ''
+        name: "Watchlists",
+        slug: "",
       },
       {
-        name : 'High Volume',
-        slug : ''
+        name: "High Volume",
+        slug: "",
       },
       {
-        name : 'Compare Coins',
-        slug : ''
-      }
-    ]
+        name: "Compare Coins",
+        slug: "",
+      },
+    ],
   },
   {
-    label : 'Exchanges',
-    child : [
+    label: "Exchanges",
+    child: [
       {
-        name : 'Crypto Exchanges',
-        slug : ''
+        name: "Crypto Exchanges",
+        slug: "",
       },
       {
-        name : 'Derivaties',
-        slug : ''
+        name: "Derivaties",
+        slug: "",
       },
       {
-        name : 'Decentralized Exchanges',
-        slug : ''
+        name: "Decentralized Exchanges",
+        slug: "",
       },
-    ]
+    ],
   },
   {
-    label : 'NFT',
-    child : [
+    label: "NFT",
+    child: [
       {
-        name : 'NFT Floor Price',
-        slug : ''
+        name: "NFT Floor Price",
+        slug: "",
       },
       {
-        name : 'NFT Related Coins',
-        slug : ''
-      }
-    ]
+        name: "NFT Related Coins",
+        slug: "",
+      },
+    ],
   },
   {
-    label : 'Learn Crypto',
-    child : [
+    label: "Learn Crypto",
+    child: [
       {
-        name : 'All Crypto Articles',
-        slug : ''
+        name: "All Crypto Articles",
+        slug: "",
       },
       {
-        name : 'Guides',
-        slug : ''
+        name: "Guides",
+        slug: "",
       },
       {
-        name : 'Methodology',
-        slug : ''
+        name: "Methodology",
+        slug: "",
       },
       {
-        name : 'Podcast',
-        slug : ''
+        name: "Podcast",
+        slug: "",
       },
       {
-        name : 'Research Reports',
-        slug : ''
+        name: "Research Reports",
+        slug: "",
       },
       {
-        name : 'Analysis',
-        slug : ''
+        name: "Analysis",
+        slug: "",
       },
       {
-        name : 'Glossary',
-        slug : ''
+        name: "Glossary",
+        slug: "",
       },
       {
-        name : 'Videos',
-        slug : ''
+        name: "Videos",
+        slug: "",
       },
       {
-        name : 'Newsletter',
-        slug : ''
-      }
-    ]
+        name: "Newsletter",
+        slug: "",
+      },
+    ],
   },
   {
-    label : 'Products',
-    child : [
+    label: "Products",
+    child: [
       {
-        name : 'CoinGecko Premium',
-        slug : ''
+        name: "CoinGecko Premium",
+        slug: "",
       },
       {
-        name : 'Crypto Portfolio',
-        slug : ''
+        name: "Crypto Portfolio",
+        slug: "",
       },
       {
-        name : 'Crypto Widget',
-        slug : ''
+        name: "Crypto Widget",
+        slug: "",
       },
       {
-        name : 'GeckoCon 2022',
-        slug : ''
+        name: "GeckoCon 2022",
+        slug: "",
       },
       {
-        name : 'CoinGecko App',
-        slug : ''
+        name: "CoinGecko App",
+        slug: "",
       },
       {
-        name : 'Crypto API',
-        slug : ''
+        name: "Crypto API",
+        slug: "",
       },
       {
-        name : 'CoinGecko Store',
-        slug : ''
-      }
-    ]
+        name: "CoinGecko Store",
+        slug: "",
+      },
+    ],
   },
   {
-    label : 'Portfolio',
-    url : '',
-    child : []
+    label: "Portfolio",
+    url: "",
+    child: [],
   },
   {
-    label : 'Explore',
-    child : [
+    label: "Explore",
+    child: [
       {
-        name : 'Bitcoin Price',
-        slug : ''
+        name: "Bitcoin Price",
+        slug: "",
       },
       {
-        name : 'DeFi Coins',
-        slug : ''
+        name: "DeFi Coins",
+        slug: "",
       },
       {
-        name : 'Gaming Coins',
-        slug : ''
+        name: "Gaming Coins",
+        slug: "",
       },
       {
-        name : 'Ethereum Price',
-        slug : ''
+        name: "Ethereum Price",
+        slug: "",
       },
       {
-        name : 'Metaverse Coins',
-        slug : ''
+        name: "Metaverse Coins",
+        slug: "",
       },
       {
-        name : 'Meme Coins',
-        slug : ''
+        name: "Meme Coins",
+        slug: "",
       },
-    ]
+    ],
   },
   {
-    label : 'Resources',
-    child : [
+    label: "Resources",
+    child: [
       {
-        name : 'Perpetuals',
-        slug : ''
+        name: "Perpetuals",
+        slug: "",
       },
       {
-        name : 'Bitcoin Treasury',
-        slug : ''
+        name: "Bitcoin Treasury",
+        slug: "",
       },
       {
-        name : 'Crypto News',
-        slug : ''
-      }
-    ]
+        name: "Crypto News",
+        slug: "",
+      },
+    ],
   },
   {
-    label : 'GeckoTerminal',
-   url : '',
-   target : '_blank',
-   child : []
+    label: "GeckoTerminal",
+    url: "",
+    target: "_blank",
+    child: [],
   },
   {
-    label : 'About CoinGecko',
-    child : [
+    label: "About CoinGecko",
+    child: [
       {
-        name : 'About Us',
-        slug : ''
+        name: "About Us",
+        slug: "",
       },
       {
-        name : 'Careers',
-        slug : ''
+        name: "Careers",
+        slug: "",
       },
       {
-        name : 'Branding Guides',
-        slug : ''
-      }
-    ]
+        name: "Branding Guides",
+        slug: "",
+      },
+    ],
   },
   {
-    label : 'Help',
-    child : [
+    label: "Help",
+    child: [
       {
-        name : 'Help Center',
-        slug : ''
+        name: "Help Center",
+        slug: "",
       },
       {
-        name : 'FAQ',
-        slug : ''
+        name: "FAQ",
+        slug: "",
       },
       {
-        name : 'Bug Bounty',
-        slug : ''
-      }
-    ]
-  }
-]
-
-const items = menuList.map((item)=> {
-  return getItem(item.label,item.label,null,item.child.map(itemChild => {
-    return getItem(itemChild.name,itemChild.name,null)
-  }))
-})
-
-
+        name: "Bug Bounty",
+        slug: "",
+      },
+    ],
+  },
+];
 
 function HeaderMobile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShowTrendingSearch,setIsShowTrendingSearch] =  useState(false)
+  const trendingDataList = useSelector((state) => state.coinSlice.coins);
+  const isLoadingTrending = useSelector((state) => state.coinSlice.isLoading);
+  const dispatch = useDispatch()
 
-  const onClick = (e) => {
-      console.log('click ', e);
-  };
+  // const onClick = (e) => {
+  //     console.log('click ', e);
+  // };
 
-
-  
-
+  // // function
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -277,7 +270,74 @@ function HeaderMobile() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  // function
+
+  const handleShowTrendingSearch = () => {
+    const showTrendingSearch = !isShowTrendingSearch
+    setIsShowTrendingSearch(showTrendingSearch)
+    if(!showTrendingSearch) return 
+    if (trendingDataList.length === 0) dispatch(getTrending());
+  }
+
+
+  // render function
+
+  const renderMenu = () => {
+    return menuList.map((item) => {
+      if (!item.child) {
+        return (
+          <Menu.Item key={item.label}>
+            <a href={item.slug}>{item.label}</a>
+          </Menu.Item>
+        );
+      }
+      return (
+        <Menu.SubMenu key={item.label} title={item.label}>
+          {item.child.map((childItem) => (
+            <Menu.Item key={childItem.name}>
+              <a href={childItem.slug}>{childItem.name}</a>
+            </Menu.Item>
+          ))}
+        </Menu.SubMenu>
+      );
+    });
+  };
+
+  const renderHeaderModalMobile = () => {
+    return (
+      <div className="header-modal-mobile flex justify-between items-center">
+        <button className="modal-close-x" onClick={handleCancel}>
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
+        <img
+          src="https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png"
+          alt="logo"
+        />
+        <a href="https://www.coingecko.com/en/premium/pricing">Subscribe</a>
+      </div>
+    );
+  };
+
+  const renderTrendingList = () => {
+    if (!isLoadingTrending) {
+      return trendingDataList.map((item, key) => {
+        return (
+          <a
+            className="search-item px-3 py-2 flex justify-between items-center"
+            key={key}
+            href="##">
+            <div className="search-item-left flex justify-between items-center gap-2">
+              <img src={item.item.thumb} alt={item.item.id} />
+              <span className="search-item-name">{item.item.name}</span>
+              <span className="search-item-symbol">({item.item.symbol})</span>
+            </div>
+            <span className="search-item-rank">
+              #{item.item.market_cap_rank}
+            </span>
+          </a>
+        );
+      });
+    }
+  };
 
   return (
     <div className="header-mobile-container-fluid">
@@ -289,7 +349,9 @@ function HeaderMobile() {
             onClick={showModal}>
             <FontAwesomeIcon className="icon" icon={faBars} />
           </Button>
-          <a  className="header-logo flex items-center" href="https://www.coingecko.com/">
+          <a
+            className="header-logo flex items-center"
+            href="https://www.coingecko.com/">
             <img
               src="https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png"
               alt="logo"
@@ -303,29 +365,37 @@ function HeaderMobile() {
               />
             </a>
             <a href="https://www.coingecko.com/account/rewards">
-             <FontAwesomeIcon className="icon" icon={faBookmark} />
+              <FontAwesomeIcon className="icon" icon={faBookmark} />
             </a>
             <a href="https://www.coingecko.com/account/rewards">
-            <FontAwesomeIcon className="icon" icon={faUser} />
+              <FontAwesomeIcon className="icon" icon={faUser} />
             </a>
           </div>
         </div>
-        <div className="bottom_header"></div>
+        <div className="header-bottom">
+          <div className="header-bottom-search">
+            <FontAwesomeIcon className="icon" icon={faMagnifyingGlass}/>
+            <input onFocus={handleShowTrendingSearch} type="text" placeholder="Search"/> 
+            </div>
+        </div>
+        <div className="header-bottom-trending">
+        <div className="trending-search rounded">
+              <p className="trending-search-title">Trending Search 🔥</p>
+              <div className="slash my-1"></div>
+              {!isLoadingTrending && renderTrendingList()}
+            </div>
+        </div>
       </div>
-      <Modal className="modal" title="Basic Modal" open={isModalOpen} onCancel={handleCancel}>
-      <Menu
-      onClick={onClick}
-      style={{
-        width: '100%',
-      }}
-      mode="inline"
-      items={items}
-    />
+      <Modal
+        className="modal"
+        title={renderHeaderModalMobile()}
+        open={isModalOpen}
+        onCancel={handleCancel}>
+        <Menu mode="inline">{renderMenu()}</Menu>
       </Modal>
+
     </div>
   );
 }
 
 export default HeaderMobile;
-
-
