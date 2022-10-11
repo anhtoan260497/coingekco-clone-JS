@@ -1,18 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
+import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import {isMobile} from 'react-device-detect';
+import DefaultLayoutMobile from "layout/DefaultMobile";
+import DefaultLayoutBrowser from "layout/DefaultBrowser";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+       {isMobile ? <DefaultLayoutMobile /> : <DefaultLayoutBrowser/> }
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

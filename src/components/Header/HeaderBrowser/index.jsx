@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import clsx from "clsx";
 import { Fragment, useState } from "react";
 import "./styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faMoon,
+  faSun,
+  faTurnDown,
+  faTurnUp,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getTrending } from "features/coinSlice";
+import { getGlobal, getTrending } from "features/coinSlice";
+import { setDarkMode } from "features/darkModeSlice";
 
 const initialHeaderMenuLeft = [
   {
@@ -67,17 +76,24 @@ const initialHeaderMenuLeft = [
 
 // console.log(coinData)
 const Header = () => {
-  //state
+  // variable & useState
   const [headerMenuLeft] = useState(initialHeaderMenuLeft);
   const [onFocusSearchHeader, setOnFocusSearchHeader] = useState();
+
+  // variable React Redux
   const trendingDataList = useSelector((state) => state.coinSlice.coins);
   const isLoadingTrending = useSelector((state) => state.coinSlice.isLoading);
-  console.log(trendingDataList);
+  const globalData = useSelector((state) => state.coinSlice.global);
+  const isDay = useSelector((state) => state.darkModeSlice.isDay);
   const dispatch = useDispatch();
 
   //methods - function
   const getTrendingData = async () => {
     await dispatch(getTrending());
+  };
+
+  const handleChangeDarkMode = () => {
+    dispatch(setDarkMode(!isDay));
   };
 
   //render function
@@ -141,21 +157,73 @@ const Header = () => {
     }
   };
 
+  const renderGlobalHeader = () => {
+    const renderGlobalHeaderData = [];
+    for (let item in globalData) {
+      renderGlobalHeaderData.push({
+        label: globalData[item].label,
+        value: globalData[item].value,
+        percent: globalData[item]?.percent,
+      });
+    }
+    return renderGlobalHeaderData.map((item, idx) => {
+      return (
+        <div className="global-status-item flex items-center" key={idx}>
+          <p className="m-0 mr-1">{item.label}</p>
+          <span className="global-status-item-number mr-1">{item.value}</span>
+          {item.percent && (
+            <span
+              className={clsx(
+                "global-status-item-description",
+                (item.percent < 0 && "text-red-600") || "text-blue-600"
+              )}>
+              {item.percent}%
+              {item.percent > 0 ? (
+                <FontAwesomeIcon
+                  className="turn-down text-blue-600"
+                  icon={faTurnUp}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  className="turn-down text-red-600"
+                  icon={faTurnDown}
+                />
+              )}
+            </span>
+          )}
+        </div>
+      );
+    });
+  };
+
   //side effect - useEffect hook
 
+  useEffect(() => {
+    dispatch(getGlobal());
+  }, []);
+
   return (
-    <div className="header-container-fluid">
+    <div className={clsx('header-container-fluid',!isDay && 'dark')}>
+      <div className="global-header flex justify-between">
+        <div className="global-header-left flex justify-between items-center">
+          {renderGlobalHeader()}
+        </div>
+        <div className="global-header-right flex justify-end items-center gap-3">
+          <button onClick={handleChangeDarkMode}>{ isDay ? <FontAwesomeIcon className="icon" icon={faSun} /> :  <FontAwesomeIcon className="icon text-white"  icon={faMoon} />}</button>
+          <a className="subscribe-button" href="https://www.coingecko.com/en/premium/pricing">Subscribe</a>
+        </div>
+      </div>
       <div className="header-container mx-auto flex justify-between">
         <div className="header-left flex justify-between items-center">
           <img
             className="header-logo"
-            src="https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png"
+            src={!isDay ? `https://static.coingecko.com/s/coingecko-logo-white-ea42ded10e4d106e14227d48ea6140dc32214230aa82ef63d0499f9c1e109656.png` : `https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png`}
             alt="coin-gecko-logo"
           />
           {renderMenuList()}
         </div>
         {onFocusSearchHeader ? (
-          <div className="header-right trending flex justify-between items-center">
+          <div className={clsx('header-right', 'trending' ,'flex', 'justify-between', 'items-center',!isDay && 'dark')}>
             <div
               className="header-right-input active-trending"
               onFocus={() => setOnFocusSearchHeader(true)}

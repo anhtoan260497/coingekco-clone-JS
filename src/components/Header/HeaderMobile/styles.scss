@@ -1,0 +1,271 @@
+$label-font-color: #4a4a4a;
+
+.header-mobile-container-fluid {
+    border-bottom: 2px solid rgb(221, 221, 221);
+
+    .header-mobile-container {
+        width: 94%;
+        margin: auto;
+        height: 100%;
+
+        .header-top {
+            height: 60px;
+            padding-top: 10px;
+
+            .header-menu-button {
+                width: calc((100% / 12) * 3);
+                background-color: unset;
+                border: none;
+                box-shadow: unset;
+                cursor: pointer;
+                text-align: left;
+                padding-left: 2px;
+
+                .icon {
+                    color: black;
+                    font-size: 20px;
+                }
+            }
+
+            .header-logo {
+                width: calc((100% / 12) * 6);
+                height: 100%;
+                text-align: center;
+                img {
+                    width: 140px;
+                    object-fit: contain;
+                    margin: auto;
+                }
+            }
+
+            .header-user {
+                width: calc((100% / 12) * 3);
+                gap: 10px;
+                font-size: 20px;
+
+                .icon {
+                    color: rgb(104, 104, 104);
+                }
+
+                img {
+                    width: 20px;
+                }
+            }
+        }
+
+        .header-bottom {
+            padding: 5px 0;
+            .header-bottom-search {
+                position: relative;
+                width: 100%;
+
+                input {
+                    width: 100%;
+                    height: 45px;
+                    border: 2px solid rgb(245, 245, 245);
+                    border-radius: 5px;
+                    background-color: rgb(243, 244, 246);
+                    border: none;
+                    outline: none;
+
+                    &::placeholder {
+                        font-size: 14px;
+                        font-weight: 500;
+                    }
+                }
+
+                .icon {
+                    position: absolute;
+                    top: 35%;
+                    right: 10px;
+                }
+            }
+        }
+
+        .header-bottom-trending {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            height: calc((100% - 117px));
+
+            .trending-search {
+                max-width: 96%;
+                margin: auto;
+
+                &-title {
+                    margin: 10px 0 0 10px;
+                }
+
+                .slash {
+                    width: 100%;
+                    border: 1px solid rgb(244, 244, 244);
+                }
+
+                .search-item {
+                    width: 100%;
+                    font-size: 14px;
+                    color: $label-font-color;
+                    font-weight: 600;
+
+                    &:hover {
+                        background-color: #f8f9fa;
+                    }
+
+                    img {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dark-mobile {
+    background-color: rgb(18, 18, 18);
+    .header-mobile-container {
+        .header-top {
+            .header-menu-button {
+                .icon {
+                    color: white;
+                }
+            }
+
+            .header-user {
+                .icon {
+                    color: white;
+                }
+            }
+        }
+
+        .header-bottom {
+            .header-bottom-search {
+                input {
+                    background-color: rgb(43, 43, 43);
+                    border: 1px solid white;
+
+                    &::placeholder {
+                        color: white;
+                    }
+                }
+
+                .icon {
+                    color: white;
+                }
+            }
+        }
+
+        .header-bottom-trending {
+            background-color: rgb(41, 41, 41);
+            color: white;
+
+            .trending-search {
+                .search-item {
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+.modal-bottom {
+    padding: 5px 10px;
+    text-align: center;
+
+    .dark-mode-button {
+        width: 96%;
+        height: 35px;
+        border: 2px solid rgb(221, 221, 221);
+        border-radius: 5px;
+    }
+}
+
+.ant-modal-body {
+    padding: 0;
+}
+
+.dark-modal-mobile {
+    .ant-modal-content,
+    .ant-modal-header,
+    .ant-modal-body .ant-menu {
+        background-color: rgb(18, 18, 18);
+        transition: background-color .3s ease;
+    }
+
+    .ant-modal-header {
+        .ant-modal-title,
+        a {
+            color: white;
+        }
+    }
+
+    .ant-modal-body {
+        .ant-menu {
+            border: none;
+            .ant-menu-submenu {
+                color: white;
+                .ant-menu-submenu-arrow {
+                    color: white;
+                }
+            }
+
+            .ant-menu-inline {
+                background-color: rgb(31, 31, 31);
+            }
+        }
+
+        .ant-menu-item a {
+            color: white;
+        }
+
+        .dark-mode-button {
+            .icon {
+                color: white;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .ant-modal-footer {
+        display: none;
+    }
+
+    .ant-menu-submenu-title:hover {
+        color: #8dc647 !important;
+    }
+
+    .ant-modal {
+        max-width: 100%;
+        top: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    .ant-modal-body {
+        height: calc(100vh - 73px); // 73px is height of ant modal header
+    }
+
+    .ant-modal-header {
+        img {
+            width: 200px;
+            margin-left: 10px;
+            height: 40px;
+            object-fit: contain;
+        }
+    }
+
+    .ant-modal-close-x {
+        display: none;
+    }
+
+    .header-modal-mobile {
+        button {
+            width: calc((100% / 12) * 1);
+        }
+
+        a {
+            color: rgb(108, 108, 108);
+        }
+    }
+}
