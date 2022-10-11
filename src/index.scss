@@ -21,3 +21,11 @@ textarea:focus, input:focus{
   outline: none;
 }
 
+a {
+  display: inline-block;
+}
+
+
+.transition {
+  transition: background-color .3s ease-in-out;
+}

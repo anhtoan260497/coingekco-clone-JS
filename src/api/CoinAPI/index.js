@@ -4,6 +4,10 @@ import axiosClient from "../axiosClient"
    getTrendingCoins : () => {
     const url = '/search/trending'
     return axiosClient.get(url)
+   },
+   getGlobal : () => {
+    const url = '/global'
+    return axiosClient.get(url)
    }
 }
 

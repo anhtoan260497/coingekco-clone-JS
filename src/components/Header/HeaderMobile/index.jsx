@@ -3,11 +3,15 @@ import {
   faBookmark,
   faUser,
   faXmark,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faMoon,
+  faSun,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Menu, Modal } from "antd";
+import clsx from "clsx";
 import { getTrending } from "features/coinSlice";
+import { setDarkMode } from "features/darkModeSlice";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.scss";
@@ -252,17 +256,17 @@ const menuList = [
 ];
 
 function HeaderMobile() {
+  // variable && useState hooks
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isShowTrendingSearch,setIsShowTrendingSearch] =  useState(false)
+  const [isShowTrendingSearch, setIsShowTrendingSearch] = useState(false);
+
+  // useSelector React Redux
   const trendingDataList = useSelector((state) => state.coinSlice.coins);
   const isLoadingTrending = useSelector((state) => state.coinSlice.isLoading);
-  const dispatch = useDispatch()
+  const isDay = useSelector((state) => state.darkModeSlice.isDay);
+  const dispatch = useDispatch();
 
-  // const onClick = (e) => {
-  //     console.log('click ', e);
-  // };
-
-  // // function
+  // function & methods
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -271,13 +275,17 @@ function HeaderMobile() {
     setIsModalOpen(false);
   };
 
-  const handleShowTrendingSearch = () => {
-    const showTrendingSearch = !isShowTrendingSearch
-    setIsShowTrendingSearch(showTrendingSearch)
-    if(!showTrendingSearch) return 
+  const handleShowTrendingSearch = (status) => {
+    if (isShowTrendingSearch === status && isShowTrendingSearch) return;
+    const showTrendingSearch = !isShowTrendingSearch;
+    setIsShowTrendingSearch(showTrendingSearch);
+    if (!showTrendingSearch) return;
     if (trendingDataList.length === 0) dispatch(getTrending());
-  }
+  };
 
+  const handleChangeDarkMode = () => {
+    dispatch(setDarkMode(!isDay));
+  };
 
   // render function
 
@@ -309,7 +317,7 @@ function HeaderMobile() {
           <FontAwesomeIcon icon={faXmark} />
         </button>
         <img
-          src="https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png"
+          src={!isDay ? `https://static.coingecko.com/s/coingecko-logo-white-ea42ded10e4d106e14227d48ea6140dc32214230aa82ef63d0499f9c1e109656.png` : `https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png`}
           alt="logo"
         />
         <a href="https://www.coingecko.com/en/premium/pricing">Subscribe</a>
@@ -340,7 +348,7 @@ function HeaderMobile() {
   };
 
   return (
-    <div className="header-mobile-container-fluid">
+    <div className={clsx("header-mobile-container-fluid",!isDay && 'dark-mobile')}>
       <div className="header-mobile-container">
         <div className="header-top flex items-center justify-between">
           <Button
@@ -353,7 +361,7 @@ function HeaderMobile() {
             className="header-logo flex items-center"
             href="https://www.coingecko.com/">
             <img
-              src="https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png"
+              src={!isDay ? `https://static.coingecko.com/s/coingecko-logo-white-ea42ded10e4d106e14227d48ea6140dc32214230aa82ef63d0499f9c1e109656.png` : `https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png`}
               alt="logo"
             />
           </a>
@@ -374,26 +382,51 @@ function HeaderMobile() {
         </div>
         <div className="header-bottom">
           <div className="header-bottom-search">
-            <FontAwesomeIcon className="icon" icon={faMagnifyingGlass}/>
-            <input onFocus={handleShowTrendingSearch} type="text" placeholder="Search"/> 
-            </div>
+            {isShowTrendingSearch ? (
+              <FontAwesomeIcon
+                onClick={() => handleShowTrendingSearch(false)}
+                className="icon"
+                icon={faXmark}
+              />
+            ) : (
+              <FontAwesomeIcon className="icon" icon={faMagnifyingGlass} />
+            )}
+            <input
+              onFocus={() => handleShowTrendingSearch(true)}
+              type="text"
+              placeholder="Search"
+            />
+          </div>
         </div>
-        <div className="header-bottom-trending">
-        <div className="trending-search rounded">
+        {isShowTrendingSearch ? (
+          <div className={clsx("header-bottom-trending",!isDay && 'dark')}>
+            <div className="trending-search rounded">
               <p className="trending-search-title">Trending Search 🔥</p>
               <div className="slash my-1"></div>
               {!isLoadingTrending && renderTrendingList()}
             </div>
-        </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <Modal
-        className="modal"
+        className={clsx('modal',!isDay && 'dark-modal-mobile')}
         title={renderHeaderModalMobile()}
         open={isModalOpen}
         onCancel={handleCancel}>
         <Menu mode="inline">{renderMenu()}</Menu>
+        <div className="modal-bottom">
+          <button className="dark-mode-button" onClick={handleChangeDarkMode}>
+            {isDay ? (
+              <FontAwesomeIcon className="icon" icon={faSun} />
+            ) : (
+              <FontAwesomeIcon className="icon" icon={faMoon} />
+            )}
+          </button>
+          <div className="header-bottom-info"></div>
+        </div>
       </Modal>
-
     </div>
   );
 }

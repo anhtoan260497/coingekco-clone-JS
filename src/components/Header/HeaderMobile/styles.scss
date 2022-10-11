@@ -76,7 +76,7 @@ $label-font-color: #4a4a4a;
 
                 .icon {
                     position: absolute;
-                    top: 30%;
+                    top: 35%;
                     right: 10px;
                 }
             }
@@ -90,10 +90,10 @@ $label-font-color: #4a4a4a;
 
             .trending-search {
                 max-width: 96%;
-                margin:auto;
+                margin: auto;
 
                 &-title {
-                    margin : 10px 0 0 10px;
+                    margin: 10px 0 0 10px;
                 }
 
                 .slash {
@@ -121,8 +121,109 @@ $label-font-color: #4a4a4a;
     }
 }
 
+.dark-mobile {
+    background-color: rgb(18, 18, 18);
+    .header-mobile-container {
+        .header-top {
+            .header-menu-button {
+                .icon {
+                    color: white;
+                }
+            }
+
+            .header-user {
+                .icon {
+                    color: white;
+                }
+            }
+        }
+
+        .header-bottom {
+            .header-bottom-search {
+                input {
+                    background-color: rgb(43, 43, 43);
+                    border: 1px solid white;
+
+                    &::placeholder {
+                        color: white;
+                    }
+                }
+
+                .icon {
+                    color: white;
+                }
+            }
+        }
+
+        .header-bottom-trending {
+            background-color: rgb(41, 41, 41);
+            color: white;
+
+            .trending-search {
+                .search-item {
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+.modal-bottom {
+    padding: 5px 10px;
+    text-align: center;
+
+    .dark-mode-button {
+        width: 96%;
+        height: 35px;
+        border: 2px solid rgb(221, 221, 221);
+        border-radius: 5px;
+    }
+}
+
 .ant-modal-body {
     padding: 0;
+}
+
+.dark-modal-mobile {
+    .ant-modal-content,
+    .ant-modal-header,
+    .ant-modal-body .ant-menu {
+        background-color: rgb(18, 18, 18);
+        transition: background-color .3s ease;
+    }
+
+    .ant-modal-header {
+        .ant-modal-title,
+        a {
+            color: white;
+        }
+    }
+
+    .ant-modal-body {
+        .ant-menu {
+            border: none;
+            .ant-menu-submenu {
+                color: white;
+                .ant-menu-submenu-arrow {
+                    color: white;
+                }
+            }
+
+            .ant-menu-inline {
+                background-color: rgb(31, 31, 31);
+            }
+        }
+
+        .ant-menu-item a {
+            color: white;
+        }
+
+        .dark-mode-button {
+            .icon {
+                color: white;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 768px) {

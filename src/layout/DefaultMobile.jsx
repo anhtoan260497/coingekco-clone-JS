@@ -4,8 +4,9 @@ import App from "App";
 import HeaderMobile from "components/Header/HeaderMobile";
 
 function DefaultLayoutMobile() {
+
   return (
-    <MobileView>
+    <MobileView >
       <HeaderMobile />
       <App />
     </MobileView>
