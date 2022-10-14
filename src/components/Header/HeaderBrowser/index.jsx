@@ -85,6 +85,7 @@ const Header = () => {
   const isLoadingTrending = useSelector((state) => state.coinSlice.isLoading);
   const globalData = useSelector((state) => state.coinSlice.global);
   const isDay = useSelector((state) => state.darkModeSlice.isDay);
+  console.log(isDay)
   const dispatch = useDispatch();
 
   //methods - function
@@ -180,7 +181,7 @@ const Header = () => {
               {item.percent}%
               {item.percent > 0 ? (
                 <FontAwesomeIcon
-                  className="turn-down text-blue-600"
+                  className="turn-down text-[#8dc647]"
                   icon={faTurnUp}
                 />
               ) : (

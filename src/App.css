@@ -37,4 +37,18 @@
   }
 }
 
+.App-container {
+  width: 100%;
+  max-width: 1300px;
+  margin:auto;
+  padding : 10px;
+}
+
+.dark {
+  background-color: rgb(18,18,18);
+  transition: background-color .3s ease;
+}
+
+
+
 
