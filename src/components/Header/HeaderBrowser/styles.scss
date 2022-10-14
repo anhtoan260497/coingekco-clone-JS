@@ -4,7 +4,16 @@ $label-font-color: #4a4a4a;
 $label-font-color-hover: #8dc647;
 
 .header-container-fluid {
-    border-bottom: 2px solid rgb(221, 221, 221);
+    border-bottom: 0.5px solid rgb(221, 221, 221);
+    position: relative;
+
+    &::after {
+        content: "";
+        width: 100%;
+        position: absolute;
+        top : 40px;
+        border: 0.5px solid rgb(221, 221, 221);
+    }
 
     .global-header {
         max-width: 1300px;
@@ -267,6 +276,10 @@ $label-font-color-hover: #8dc647;
 }
 
 .dark {
+    border: 0.5px solid rgb(42, 42, 42);
+    &::after {
+        border: 0.5px solid rgb(42, 42, 42);
+    }
     .header-container {
         .header-left .menu-left-options .label,
         .header-right .anchor-option {

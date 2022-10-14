@@ -85,7 +85,7 @@ function MenuTopPage() {
   };
 
   return (
-    <div className={clsx('menu-top-page',!isDay && 'dark')}>
+    <div className={clsx('menu-top-page',!isDay && 'dark-menu-header')}>
       <ul className="flex m-0 py-3 items-center">{renderTopMenuList()}</ul>
     </div>
   );
