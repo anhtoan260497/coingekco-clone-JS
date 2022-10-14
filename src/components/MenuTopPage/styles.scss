@@ -1,4 +1,4 @@
-@import '../../assets/styles/_variables.scss';
+@import "../../assets/styles/_variables.scss";
 .menu-top-page {
     border-bottom: 1px solid rgb(221, 221, 221);
 
@@ -6,106 +6,101 @@
         position: relative;
         cursor: pointer;
         width: fit-content;
-        padding : 5px 10px;
+        padding: 5px 10px;
         font-weight: 600;
-        color : rgb(120, 120, 120);
+        color: rgb(120, 120, 120);
 
         &:hover:after {
             content: "";
             position: absolute;
             width: 100%;
-            border: 1px solid rgb(112,112,112);
+            border: 1px solid rgb(112, 112, 112);
             top: calc(100% + 10px); // 11px is the padding of menu-top-page-bottom -border + 1px border
             left: 0;
             z-index: 1;
-            
         }
 
         .active-icon {
             path {
-                color: rgb(241,192,96) !important;
+                color: rgb(241, 192, 96) !important;
             }
         }
     }
 
     .active {
         position: relative;
-        color :black;
+        color: black;
         &::after {
-            content : "";
+            content: "";
             position: absolute;
             width: 100%;
             border: 1.5px solid $global-primary-color;
-            top : calc(100% + 10px);
+            top: calc(100% + 10px);
             left: 0;
             z-index: 10000 !important;
         }
     }
 }
 
-.dark {
-
-    .menu-top-page{
-        border-bottom: 1px solid rgb(100, 100, 100);
-    }
+.dark-menu-header {
+    background-color: $dark-bg;
+    border-bottom: 1px solid rgb(42, 42, 42);
 
     .menu-item {
-        color :rgb(160, 160, 160);
+        color: rgb(160, 160, 160);
     }
 
     .active {
-        color :white;
+        color: white;
     }
 }
 
-@media only screen and (max-width : 991px) {
+@media only screen and (max-width: 991px) {
     .menu-top-page {
         border-bottom: 1px solid rgb(221, 221, 221);
         width: 100%;
-    
+
         .menu-item {
             position: relative;
             cursor: pointer;
             width: fit-content;
-            padding : 5px 10px;
-    
+            padding: 5px 10px;
+
             &:hover:after {
                 content: "";
                 position: absolute;
                 width: 100%;
-                border: 1px solid rgb(112,112,112);
+                border: 1px solid rgb(112, 112, 112);
                 top: calc(100% + 11px); // 11px is the padding of menu-top-page-bottom -border + 1px border
                 left: 0;
-            
             }
-    
+
             .active-icon {
                 path {
-                    color: rgb(241,192,96) !important;
+                    color: rgb(241, 192, 96) !important;
                 }
             }
         }
-    
+
         .active {
             position: relative;
             &::after {
-                content : "";
+                content: "";
                 position: absolute;
                 width: 100%;
                 border: 1px solid $global-primary-color;
-                top : calc(100% + 11px);
+                top: calc(100% + 11px);
                 left: 0;
             }
         }
     }
 }
 
-
-@media  only screen and (max-width : 991px) {
+@media only screen and (max-width: 991px) {
     .menu-top-page {
         overflow-x: scroll;
         overflow-y: hidden;
-        white-space:nowrap;
+        white-space: nowrap;
     }
 
     ::-webkit-scrollbar {
