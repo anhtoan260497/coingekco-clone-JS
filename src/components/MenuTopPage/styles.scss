@@ -17,7 +17,7 @@
             border: 1px solid rgb(112, 112, 112);
             top: calc(100% + 10px); // 11px is the padding of menu-top-page-bottom -border + 1px border
             left: 0;
-            z-index: 1;
+            z-index: 0;
         }
 
         .active-icon {
@@ -30,14 +30,14 @@
     .active {
         position: relative;
         color: black;
-        &::after {
+        &::before {
             content: "";
             position: absolute;
             width: 100%;
             border: 1.5px solid $global-primary-color;
             top: calc(100% + 10px);
             left: 0;
-            z-index: 10000 !important;
+            z-index: 100;
         }
     }
 }

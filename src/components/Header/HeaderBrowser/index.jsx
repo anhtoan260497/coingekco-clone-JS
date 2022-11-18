@@ -74,7 +74,6 @@ const initialHeaderMenuLeft = [
   },
 ];
 
-// console.log(coinData)
 const Header = () => {
   // variable & useState
   const [headerMenuLeft] = useState(initialHeaderMenuLeft);
@@ -85,7 +84,6 @@ const Header = () => {
   const isLoadingTrending = useSelector((state) => state.coinSlice.isLoading);
   const globalData = useSelector((state) => state.coinSlice.global);
   const isDay = useSelector((state) => state.darkModeSlice.isDay);
-  console.log(isDay)
   const dispatch = useDispatch();
 
   //methods - function
@@ -161,6 +159,7 @@ const Header = () => {
   const renderGlobalHeader = () => {
     const renderGlobalHeaderData = [];
     for (let item in globalData) {
+      if(!globalData[item].isShow) continue
       renderGlobalHeaderData.push({
         label: globalData[item].label,
         value: globalData[item].value,
@@ -170,13 +169,13 @@ const Header = () => {
     return renderGlobalHeaderData.map((item, idx) => {
       return (
         <div className="global-status-item flex items-center" key={idx}>
-          <p className="m-0 mr-1">{item.label}</p>
-          <span className="global-status-item-number mr-1">{item.value}</span>
+          <p className="m-0">{item.label}</p>
+          <span className="global-status-item-number mr-1 ml-1">{item.value}</span>
           {item.percent && (
             <span
               className={clsx(
                 "global-status-item-description",
-                (item.percent < 0 && "text-red-600") || "text-blue-600"
+                (item.percent < 0 && "text-red-600") || "text-[#8dc647]"
               )}>
               {item.percent}%
               {item.percent > 0 ? (

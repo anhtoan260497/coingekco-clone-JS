@@ -10,9 +10,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Menu, Modal } from "antd";
 import clsx from "clsx";
-import { getTrending } from "features/coinSlice";
+import { getGlobal, getTrending } from "features/coinSlice";
 import { setDarkMode } from "features/darkModeSlice";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.scss";
 
@@ -346,6 +346,11 @@ function HeaderMobile() {
       });
     }
   };
+
+  // useEffect & side Effect
+  useEffect(() => {
+    dispatch(getGlobal());
+  }, []);
 
   return (
     <div className={clsx("header-mobile-container-fluid",!isDay && 'dark-mobile')}>

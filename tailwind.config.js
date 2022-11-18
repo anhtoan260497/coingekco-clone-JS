@@ -6,10 +6,8 @@ module.exports = {
       colors : {
         'primary-green' : '#8dc647'
       }
-    },
-    
+    }, 
   },
   plugins: [
-    require('flowbite/plugin')
   ],
 };

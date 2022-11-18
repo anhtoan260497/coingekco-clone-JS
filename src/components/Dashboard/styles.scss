@@ -1,0 +1,74 @@
+@import '/src/assets/styles/variables';
+
+.dashboard-coins {
+    .dashboard-title {
+        text-align: left;
+        font-size: 24px;
+        font-weight: 800;
+        margin : 0;
+    }
+
+    .dashboard-overview {
+        width: 60%;
+        color : $global-secondary-color;
+        font-weight: 400;
+    }
+
+    .stats-item{ 
+        box-shadow: 0 1px 2px 0 rgb(60 64 67 / 10%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+        width: calc(100% / 4.5);
+        position: relative;
+        border-radius: 5px;
+        overflow: hidden;
+        
+        .stats-color {
+            width: 5px;
+            height: 100%;
+        }
+
+        .stats-number {
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .stats-percent {
+            font-weight: 600;
+        }
+
+        .stats-description {
+            color : $global-secondary-color;
+            font-weight: 500;
+            opacity: .8;
+        }
+    }
+}
+
+.dark-dashboard {
+    .dashboard-title {
+        color : white;
+    }
+
+    .stats-item {
+        background-color: rgb(40,40,40);
+        
+        .stats-description {
+            color : rgb(221,221,221)
+        }
+    }
+}
+
+@media only screen and (max-width : 1199px) {
+    .dashboard-coins {
+        .dashboard-overview {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width : 768px) {
+    .dashboard-coins {
+        .dashboard-title {
+            font-size: 20px;
+        }
+    }
+}
