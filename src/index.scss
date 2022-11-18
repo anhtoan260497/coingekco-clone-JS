@@ -25,6 +25,10 @@ a {
   display: inline-block;
 }
 
+p {
+  margin : 0 !important;
+}
+
 
 .transition {
   transition: background-color .3s ease-in-out;
