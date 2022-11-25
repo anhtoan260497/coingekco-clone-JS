@@ -1,0 +1,15 @@
+.breadcrumbs {
+    p {
+        font-size: 14px;
+        font-weight: 600;
+
+        &:first-child:hover{
+            color : rgb(121, 159, 27);
+            cursor: pointer;
+        }
+
+        &:last-child{
+            color :rgb(180,180,180);
+        }
+    }
+}
